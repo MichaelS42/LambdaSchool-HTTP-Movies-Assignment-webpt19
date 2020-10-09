@@ -77,4 +77,4 @@ const AddMovie = (props) => {
   );
 };
 
-export default MovieUpdate;
+export default AddMovie;
