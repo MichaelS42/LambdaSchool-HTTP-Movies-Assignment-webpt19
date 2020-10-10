@@ -1,45 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
 
 const initialState = {
-    id: 5,
-    title: 'Tombstone',
-    director: 'George P. Cosmatos',
-    metascore: 89,
-    stars: ['Kurt Russell', 'Bill Paxton', 'Sam Elliot'],
-  }
+  id: 5,
+  title: "Tombstone",
+  director: "George P. Cosmatos",
+  metascore: 89,
+  stars: ["Kurt Russell", "Bill Paxton", "Sam Elliot"],
+};
 
-  const MovieUpdate = (props) => {
-      const [movie, setMovies] = useState(initialState);
-      const { id } = useParams();
-      const { push } = useHistory();
-  
+const MovieUpdate = (props) => {
+  const [movie, setMovies] = useState(initialState);
+  const { id } = useParams();
+  const { push } = useHistory();
 
-  useEffect (() => {
-      axios
+  useEffect(() => {
+    axios
       .get(`http://localhost:5000/api/movies/${id}`)
       .then((res) => {
-          console.log("res", res);
-          setMovies(res.data)
+        console.log("res", res);
+        setMovies(res.data);
       })
-      .catch((err) => console.log(err))
-  })
+      .catch((err) => console.log(err));
+  }, []);
   const handleChanges = (e) => {
     setMovies({
       ...movie,
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .put(`http://localhost:5000/api/movies/${id}`, movie)
       .then((res) => {
         console.log("res", res);
-        props.setMovies(res.data);
-        push(`/api/movies/${id}`);
+        push(`/`);
       })
       .catch((err) => console.error(`unable to update ${id}: `, err));
   };
@@ -55,7 +53,7 @@ const initialState = {
           placeholder="title"
           value={movie.title}
         />
-        <div/>
+        <div />
 
         <input
           type="text"
@@ -64,7 +62,7 @@ const initialState = {
           placeholder="director"
           value={movie.director}
         />
-        <div/>
+        <div />
 
         <input
           type="number"
@@ -73,7 +71,7 @@ const initialState = {
           placeholder="metascore"
           value={movie.metascore}
         />
-        <div/>
+        <div />
 
         <input
           type="string"
@@ -82,7 +80,7 @@ const initialState = {
           placeholder="stars"
           value={movie.stars}
         />
-        <div/>
+        <div />
 
         <button className="md-button form-button">Update</button>
       </form>
@@ -91,4 +89,3 @@ const initialState = {
 };
 
 export default MovieUpdate;
-

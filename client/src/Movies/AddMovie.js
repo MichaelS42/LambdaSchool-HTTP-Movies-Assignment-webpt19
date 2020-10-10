@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import {useHistory} from "react-router-dom";
 
 const initialState = {
   id: "",
@@ -11,6 +12,7 @@ const initialState = {
 
 const AddMovie = (props) => {
   const [movie, setMovie] = useState(initialState);
+  const { push } = useHistory();
 
   const handleChanges = (e) => {
     setMovie({
@@ -22,11 +24,10 @@ const AddMovie = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/movies/")
+      .post("http://localhost:5000/api/movies/", movie)
       .then((res) => {
         console.log("res", res);
-        props.setMovies(res.data);
-        push("/api/movies/");
+        push(`/`);
       })
       .catch((err) => console.error(err));
   };
