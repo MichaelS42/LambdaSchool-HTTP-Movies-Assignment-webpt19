@@ -26,7 +26,7 @@ const initialState = {
       .catch((err) => console.log(err))
   })
   const handleChanges = (e) => {
-    setMovie({
+    setMovies({
       ...movie,
       [e.target.name]: e.target.value,
     });

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import MovieList from './Movies/MoviesList'
 
-function Item(props) {
+function DeleteMovie(props) {
     const { push } = useHistory();
     const { id } = useParams();
   
